@@ -22,8 +22,8 @@ const customerModel = mongoose.model("customer", customerSchema);
 
 function customerInputValidation(input) {
   const joiValidation = joi.object({
-    name: joi.alpha().string().min(5).max(50).required(),
-    phone: joi.number().min(11).max(20).required()
+    name: joi.string().min(5).max(50).required(),
+    phone: joi.number().min(11).max(10000000000).required()
   });
   return joiValidation.validate(input);
 }

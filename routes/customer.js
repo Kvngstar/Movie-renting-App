@@ -19,4 +19,20 @@ router.post("/", async (req, res) => {
   await newCustomer.save();
   res.status(200).send(newCustomer);
 });
+
+router.get("/:id",async (req,res)=>{
+ const requestId = req.params.id;
+  console.log(requestId)
+ const id = await customerModel.findById(requestId);
+ if(id){
+  return res.status(200).send(id.name)
+ }
+ res.status(200).send("Not found")
+
+})
+router.get("/",async (req,res)=>{
+ const id = await customerModel.findById();         
+ res.status(200).send(id)
+
+})
 module.exports = router;
