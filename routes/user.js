@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const _ = require("lodash");
 const bcrpt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const { userInputValidation, userModel } = require("../model/userModel");
 
 router.post("/", async (req, res) => {
@@ -12,8 +13,8 @@ router.post("/", async (req, res) => {
   }
 
   const checkEmailInDataBase = await userModel.find({ email: req.body.email });
-  console.log(checkEmailInDataBase)
-  if (checkEmailInDataBase.length > 0 ) {
+  console.log(checkEmailInDataBase);
+  if (checkEmailInDataBase.length > 0) {
     return res.status(400).send("Email exists, try another email");
   }
 
@@ -25,9 +26,10 @@ router.post("/", async (req, res) => {
       email: req.body.email,
       password: hashedPassword,
     });
-
+    
     await newuser.save();
-    res.status(200).send(_.pick(newuser, ["name", "email"]));
+    const token = jwt.sign({email:req.body.email},"1234")
+    res.header("x-auth-token",token).send(_.pick(newuser, ["name", "email"]));
   } catch (err) {
     console.log(err.message);
     res.status(200).send(err.message);
