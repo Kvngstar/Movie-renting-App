@@ -1,0 +1,13 @@
+info: {
+  name: 'Kingsley kelechukwu Okoronkwo',
+  email: 'ameer@gmail.com',
+  password: '$2b$10$JtdJOf.sQlOuCnscLg0HNuKXF7v7I5uEEos4dxZZvnB5T5SVwcRBi',
+  admin: true,
+  _id: new ObjectId("6323f22f959d660276d60216"),
+  __v: 0
+} with email ameer@gmail.com created an account
+info: Kingsley kelechukwu Okoronkwo with email amina@gmail.com created an account
+info: Kingsley kelechukwu Okoronkwo with email amin@gmail.com created an account on function toUTCString() { [native code] }
+info: Kingsley kelechukwu Okoronkwo with email ami@gmail.com created an account on function toUTCString() { [native code] }
+info: Kingsley kelechukwu Okoronkwo with email am@gmail.com created an account on Fri, 16 Sep 2022 04:02:33 GMT
+info: Kingsley kelechukwu Okoronkwo with email a@gmail.com created an account on Fri, 16 Sep 2022 04:03:50 GMT
