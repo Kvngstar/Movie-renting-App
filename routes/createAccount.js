@@ -4,7 +4,7 @@ const _ = require("lodash");
 const bcrpt = require("bcrypt");
 const { userInputValidation, userModel } = require("../model/createAccount");
 const config = require("config");
-const  winstonMongoDB =  require("winston-mongodb")
+   require("winston-mongodb");
 
 const winston = require("winston");
 const logger = winston.createLogger({
@@ -17,9 +17,10 @@ const logger = winston.createLogger({
     }),
     new winston.transports.File({
       filename: "Info-createAccount.log",
-      level: "info",
+      level: "info", 
     }),
-    new winston.transports.MongoDB 
+    new winston.transports.MongoDB({db:"mongodb://localhost:27017/Knglystores",level:"info",name:"createAcccountAPI",collection:"log - createAcccount"}),
+  
   ],
 });
 
@@ -34,9 +35,8 @@ router.post("/", async (req, res, next) => {
     const checkEmailInDataBase = await userModel.find({
       email: req.body.email,
     });
-    console.log(checkEmailInDataBase);
     if (checkEmailInDataBase.length > 0) {
-      return res.status(400).send("Email exists, try another email");
+      return res.status(400).send("email exists, Login instead");
     }
 
     const salt = await bcrpt.genSalt(10);
@@ -52,9 +52,9 @@ router.post("/", async (req, res, next) => {
     const token = newuser.generateAuthToken();
     logger.log(
       "info",
-      `${newuser.name} with email ${
+      `~${newuser.name}~ with email ~${
         newuser.email
-      } created an account on ${new Date().toUTCString()}`
+      }~ created an account on ~${new Date().toUTCString()}~`
     );
     res.header("x-auth-token", token).send(_.pick(newuser, ["name", "email"]));
   } catch (err) {

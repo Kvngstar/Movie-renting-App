@@ -7,6 +7,7 @@ const jwt = require("jsonwebtoken");
 const auth = require("../authentification/JWTauth");
 const customer = require("./customer");
 const winston = require("winston");
+require("winston-mongodb");
 
 const logger = winston.createLogger({
   level: "info",
@@ -19,7 +20,10 @@ const logger = winston.createLogger({
     new winston.transports.File({
       filename: "Info-userLogin.log",
       level: "info",
-    }),
+    }), 
+    new winston.transports.MongoDB({db:"mongodb://localhost:27017/Knglystores",level:"info",name:"loginAPI",collection:"log - userLogin"}),
+  
+    
   ],
 });
 

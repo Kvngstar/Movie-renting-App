@@ -9,40 +9,48 @@ const mongoose = require("mongoose");
 const _ = require("lodash");
 const auth = require("../authentification/JWTauth");
 const winston = require("winston");
-
+const asyncMiddleWarwe = require("../model/try&catch");
+     require("winston-mongodb")
 const logger = winston.createLogger({
   level: "info",
   format: winston.format.simple(),
   transports: [
     new winston.transports.File({
-      filename: "Error-genre.log",
+      filename: "Error-genre.log",  
       level: "error",
     }),
     new winston.transports.File({ filename: "Info-genre.log", level: "info" }),
+    new winston.transports.MongoDB({db:"mongodb://localhost:27017/Knglystores",level:"info",name:"GenreAPI",collection:"log - genre"}),
+  
   ],
 });
 
-router.get("/", async (req, res) => {
-  const getAllGenres = await genreModel
-    .find({})
-    .sort("name")
-    .select({ name: 1, "movies.CopiesAvailable": 1 });
-  res.status(200).send(getAllGenres);
-});
-router.get("/allmovies", async (req, res) => {
-  try {
+router.get(
+  "/",
+  asyncMiddleWarwe(async (req, res) => {
     const getAllGenres = await genreModel
       .find({})
       .sort("name")
-      .select("movies");
+      .select({ name: 1, "movies.CopiesAvailable": 1 });
     res.status(200).send(getAllGenres);
-  } catch (err) {
-    next(err);
-  }
-});
+  })
+);
+router.get(
+  "/allmovies",
+  asyncMiddleWarwe(async (req, res) => {
+    {
+      const getAllGenres = await genreModel
+        .find({})
+        .sort("name")
+        .select("movies");
+      res.status(200).send(getAllGenres);
+    }
+  })
+);
 
-router.post("/:id", async (req, res, next) => {
-  try {
+router.post(
+  "/:id",
+  asyncMiddleWarwe(async (req, res) => {
     const postRequest = req.params.id;
     const objId = mongoose.Types.ObjectId.isValid(postRequest);
     if (!objId) {
@@ -54,13 +62,13 @@ router.post("/:id", async (req, res, next) => {
       return res.status(400).send("no movie available for this selected genre");
     }
     return res.status(200).send(obj);
-  } catch (err) {
-    return next(err);
-  }
-});
+  })
+);
 
-router.post("/", auth, async (req, res, next) => {
-  try {
+router.post(
+  "/",
+  auth,
+  asyncMiddleWarwe(async (req, res) => {
     const postRequest = req.body;
     const { error } = genreInputValidation(postRequest);
     if (error) {
@@ -76,43 +84,44 @@ router.post("/", auth, async (req, res, next) => {
     });
 
     createGenure.save();
-    logger.log("info", `Created ~${createGenure.movies.Moviename}~ under ~${createGenure.name}~ on ~${new Date().toUTCString()}~`);
+    logger.log(
+      "info",
+      `Created ~${createGenure.movies.Moviename}~ under ~${
+        createGenure.name
+      }~ on ~${new Date().toUTCString()}~`
+    );
     res.status(200).send(createGenure);
-  } catch (err) {
-    logger.log("error", err.message);
-    return next(err);
-  }
-});
+  })
+);
 
-router.put("/update/:id", auth, async (req, res, next) => {
-  {
-    try {
-      const requestId = req.params.id;
-      const genreName = req.body.name;
-      if (!mongoose.Types.ObjectId.isValid(requestId)) {
-        return res.status(404).send("invaid ID");
-      }
-      var update = await genreModel.findById(requestId);
-
-      if (update) {
-        const updated = await genreModel.findByIdAndUpdate(
-          { _id: requestId },
-          { $set: { name: genreName } },
-          { new: true }
-        );
-        const populated = _.pick(updated, ["name", "_id"]);
-        logger.log("info", `${update} was updated to ${updated}`);
-        return res.status(200).send(populated);
-      }
-    } catch (err) {
-      logger.log("error", err.message);
-      return next(err);
+router.put(
+  "/update/:id",
+  auth,
+  asyncMiddleWarwe(async (req, res) => {
+    const requestId = req.params.id;
+    const genreName = req.body.name;
+    if (!mongoose.Types.ObjectId.isValid(requestId)) {
+      return res.status(404).send("invaid ID");
     }
-  }
-});
+    var update = await genreModel.findById(requestId);
 
-router.delete("/delete/:id", auth, async (req, res, next) => {
-  try {
+    if (update) {
+      const updated = await genreModel.findByIdAndUpdate(
+        { _id: requestId },
+        { $set: { name: genreName } },
+        { new: true }
+      );
+      const populated = _.pick(updated, ["name", "_id"]);
+      logger.log("info", `${update} was updated to ${updated}`);
+      return res.status(200).send(populated);
+    }
+  })
+);
+
+router.delete(
+  "/delete/:id",
+  auth,
+  asyncMiddleWarwe(async (req, res) => {
     const getId = req.params.id;
     if (!mongoose.Types.ObjectId.isValid(getId)) {
       return res.status(404).send("invalid ID");
@@ -125,10 +134,7 @@ router.delete("/delete/:id", auth, async (req, res, next) => {
     const deleteId = await genreModel.findByIdAndRemove(getId);
     logger.log("info", `${deleteId} was deleted from the DataBase`);
     return res.status(200).send(deleteId);
-  } catch (err) {
-    logger.log("error", err.message);
-    return next(err);
-  }
-});
+  })
+);
 
 module.exports = router;

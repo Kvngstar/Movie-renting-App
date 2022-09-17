@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "start": "cross-env NODE_ENV=development nodemon index.js"
+    "start": "cross-env NODE_ENV=test nodemon index.js",
+    "test": "jest --watchAll"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
@@ -17,5 +18,9 @@
     "morgan": "^1.10.0",
     "winston": "^3.8.2",
     "winston-mongodb": "^5.0.7"
+  },
+  "devDependencies": {
+    "jest": "^29.0.3",
+    "supertest": "^6.2.4"
   }
 }

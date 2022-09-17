@@ -1,4 +1,4 @@
-const errorhandler = require("./error/error");
+const errorhandler = require("./error/errorHandler");
 const login = require("./routes/userLogin");
 const createAccount = require("./routes/createAccount");
 const customer = require("./routes/customer");
@@ -19,10 +19,6 @@ const logger = winston.createLogger({
   format: winston.format.simple(),
   transports: [
     new winston.transports.File({
-      filename: "Error-IndexPage.log",
-      level: "error",
-    }),
-    new winston.transports.File({
       filename: "Info-IndexPage.log",
       level: "info",
     }),
@@ -37,12 +33,26 @@ const accessLogStream = fs.createWriteStream(
 );
 app.use(morgan("combined", { stream: accessLogStream }));
 
+process.on("uncaughtException",(err)=>{
+  logger.log("error",err.message)
+})
+process.on("unhandledRejection",(err)=>{
+  logger.log("error",err.message)
+  process.exit(1)
+})
+
+
+
+
+
+
 async function connectMongoDb() {
   try {
-    await mongoose.connect("mongodb://localhost:27017/Knglystores");
+    await mongoose.connect(config.get("db"));
     logger.log("info", `connected to Database on ${new Date().toUTCString()}`);
   } catch (err) {
     logger.log("error", err.message);
+  
   }
 }
 connectMongoDb();
@@ -53,6 +63,7 @@ app.use("/api/login", login);
 app.use(errorhandler);
 
 console.log(config.get("env"));
-app.listen(3000, () => {
+const server = app.listen(3000, () => {
   console.log("listening to port 3000");
 });
+module.exports = server
