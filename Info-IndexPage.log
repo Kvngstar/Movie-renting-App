@@ -162,3 +162,6 @@ info: connected to Database on Sat, 17 Sep 2022 15:13:43 GMT
 info: connected to Database on Sat, 17 Sep 2022 15:15:29 GMT
 info: connected to Database on Sat, 17 Sep 2022 15:22:03 GMT
 info: connected to Database on Sat, 17 Sep 2022 15:22:32 GMT
+info: connected to Database on Sat, 17 Sep 2022 15:32:10 GMT
+info: connected to Database on Sat, 17 Sep 2022 15:33:24 GMT
+error: The `uri` parameter to `openUri()` must be a string, got "undefined". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string.

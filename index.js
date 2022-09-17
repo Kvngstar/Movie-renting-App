@@ -42,7 +42,7 @@ process.on("unhandledRejection", (err) => {
 
 async function connectMongoDb() {
   try {
-    await mongoose.connect(config.get("db"));
+    await mongoose.connect("mongodb+srv://kingsley:Graceson1234@kingly.8txkyr9.mongodb.net/?retryWrites=true&w=majority");
     logger.log("info", `connected to Database on ${new Date().toUTCString()}`);
   } catch (err) {
     logger.log("error", err.message);
