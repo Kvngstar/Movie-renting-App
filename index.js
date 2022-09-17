@@ -55,9 +55,7 @@ app.use("/api/createAccount", createAccount);
 app.use("/api/customer", customer);
 app.use("/api/login", login);
 app.use(errorhandler);
-const port = process.env.PORT || 3112; 
-console.log(port);
-console.log(process.env);
+const port = process.env.PORT || 3112;
 const server = app.listen(port, () => {
   console.log(`listening to port`);
 });
