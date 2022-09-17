@@ -165,3 +165,60 @@ info: connected to Database on Sat, 17 Sep 2022 15:22:32 GMT
 info: connected to Database on Sat, 17 Sep 2022 15:32:10 GMT
 info: connected to Database on Sat, 17 Sep 2022 15:33:24 GMT
 error: The `uri` parameter to `openUri()` must be a string, got "undefined". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string.
+info: connected to Database on Sat, 17 Sep 2022 15:35:30 GMT
+info: connected to Database on Sat, 17 Sep 2022 15:36:29 GMT
+info: connected to Database on Sat, 17 Sep 2022 15:42:59 GMT
+info: connected to Database on Sat, 17 Sep 2022 15:43:04 GMT
+info: connected to Database on Sat, 17 Sep 2022 15:43:13 GMT
+info: connected to Database on Sat, 17 Sep 2022 15:43:55 GMT
+info: connected to Database on Sat, 17 Sep 2022 15:44:12 GMT
+info: connected to Database on Sat, 17 Sep 2022 15:48:41 GMT
+info: connected to Database on Sat, 17 Sep 2022 16:01:21 GMT
+info: connected to Database on Sat, 17 Sep 2022 16:02:23 GMT
+error: listen EADDRINUSE: address already in use :::5100
+info: connected to Database on Sat, 17 Sep 2022 16:04:32 GMT
+error: listen EADDRINUSE: address already in use :::5100
+info: connected to Database on Sat, 17 Sep 2022 16:08:34 GMT
+error: Configuration property "env" is not defined
+error: Configuration property "env" is not defined
+info: connected to Database on Sat, 17 Sep 2022 16:15:35 GMT
+info: connected to Database on Sat, 17 Sep 2022 16:15:36 GMT
+error: Configuration property "env" is not defined
+error: Configuration property "env" is not defined
+info: connected to Database on Sat, 17 Sep 2022 16:19:23 GMT
+info: connected to Database on Sat, 17 Sep 2022 16:19:23 GMT
+error: Configuration property "env" is not defined
+info: connected to Database on Sat, 17 Sep 2022 16:20:43 GMT
+error: Configuration property "env" is not defined
+info: connected to Database on Sat, 17 Sep 2022 16:20:53 GMT
+info: connected to Database on Sat, 17 Sep 2022 16:22:48 GMT
+error: listen EADDRINUSE: address already in use :::5100
+info: connected to Database on Sat, 17 Sep 2022 16:24:08 GMT
+error: Configuration property "env" is not defined
+error: Configuration property "env" is not defined
+info: connected to Database on Sat, 17 Sep 2022 16:26:07 GMT
+info: connected to Database on Sat, 17 Sep 2022 16:26:09 GMT
+error: Configuration property "env" is not defined
+error: Configuration property "env" is not defined
+info: connected to Database on Sat, 17 Sep 2022 16:27:04 GMT
+info: connected to Database on Sat, 17 Sep 2022 16:27:06 GMT
+error: Calling config.get with null or undefined argument
+error: Calling config.get with null or undefined argument
+info: connected to Database on Sat, 17 Sep 2022 16:27:19 GMT
+info: connected to Database on Sat, 17 Sep 2022 16:27:19 GMT
+error: listen EADDRINUSE: address already in use :::5100
+info: connected to Database on Sat, 17 Sep 2022 16:27:35 GMT
+info: connected to Database on Sat, 17 Sep 2022 16:27:35 GMT
+error: listen EADDRINUSE: address already in use :::5100
+error: listen EADDRINUSE: address already in use :::5100
+info: connected to Database on Sat, 17 Sep 2022 16:27:57 GMT
+error: confi is not defined
+error: confi is not defined
+error: Configuration property "env" is not defined
+error: Configuration property "env" is not defined
+info: connected to Database on Sat, 17 Sep 2022 16:28:25 GMT
+info: connected to Database on Sat, 17 Sep 2022 16:28:25 GMT
+error: listen EADDRINUSE: address already in use :::5100
+info: connected to Database on Sat, 17 Sep 2022 16:29:17 GMT
+info: connected to Database on Sat, 17 Sep 2022 16:29:17 GMT
+error: listen EADDRINUSE: address already in use :::5100

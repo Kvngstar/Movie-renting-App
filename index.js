@@ -37,12 +37,13 @@ process.on("uncaughtException", (err) => {
 });
 process.on("unhandledRejection", (err) => {
   logger.log("error", err.message);
-  process.exit(1);
 });
 
 async function connectMongoDb() {
   try {
-    await mongoose.connect("mongodb+srv://kingsley:Graceson1234@kingly.8txkyr9.mongodb.net/?retryWrites=true&w=majority");
+    await mongoose.connect(
+      "mongodb+srv://kingsley:Graceson1234@kingly.8txkyr9.mongodb.net/?retryWrites=true&w=majority"
+    );
     logger.log("info", `connected to Database on ${new Date().toUTCString()}`);
   } catch (err) {
     logger.log("error", err.message);
@@ -54,9 +55,10 @@ app.use("/api/createAccount", createAccount);
 app.use("/api/customer", customer);
 app.use("/api/login", login);
 app.use(errorhandler);
-
-const port = process.env.PORT
+const port = process.env.PORT||5100;
+console.log(port)
 const server = app.listen(port, () => {
   console.log(`listening to port`);
 });
 module.exports = server;
+ 
