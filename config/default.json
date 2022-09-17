@@ -1,5 +1,5 @@
 {
     "password":"1234",
-    "db": "mongodb://localhost:27017/Knglystores"
+    "db": "mongodb+srv://kingsley:Graceson1234@kingly.8txkyr9.mongodb.net/?retryWrites=true&w=majority"
 
 }
