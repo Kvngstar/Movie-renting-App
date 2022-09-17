@@ -1,3 +1,4 @@
 {
-    "env":"production: this from config file"
+    "db": "mongodb+srv://kingsley:Graceson1234@kingly.8txkyr9.mongodb.net/?retryWrites=true&w=majority"
+
 }

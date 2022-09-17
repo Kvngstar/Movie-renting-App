@@ -55,9 +55,8 @@ app.use("/api/customer", customer);
 app.use("/api/login", login);
 app.use(errorhandler);
 
-console.log(config.get("env"));
 const port = process.env.PORT
-const server = app.listen(3000, () => {
+const server = app.listen(port, () => {
   console.log(`listening to port`);
 });
 module.exports = server;
