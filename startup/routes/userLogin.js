@@ -46,7 +46,10 @@ router.post("/", async (req, res, next) => {
       return res.status(400).send("password does not match");
     } 
       logger.log("info", `${req.body.email} succesfully signed in on ${new Date().toUTCString()}`);
-      return res.status(200).send("You're logged-in, You will be redirected");
+     //res.status(200).send("You're logged-in, You will be redirected");
+
+     var btring = encodeURIComponent(userDetailInDatabase[0]._id)
+     res.redirect("customer/?id=" + btring )
   
   } catch (err) {
     logger.log("error", err.message);
@@ -54,4 +57,4 @@ router.post("/", async (req, res, next) => {
   }
 }); 
 
-module.exports = router;
+module.exports = router;   

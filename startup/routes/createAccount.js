@@ -36,7 +36,7 @@ router.post("/", async (req, res, next) => {
       email: req.body.email,
     });
     if (checkEmailInDataBase.length > 0) {
-      return res.status(400).send("email exists, Login instead");
+      return res.status(401).send("email exists, Login instead");
     }
 
     const salt = await bcrpt.genSalt(10);

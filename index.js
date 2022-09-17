@@ -1,8 +1,8 @@
-const errorhandler = require("./error/errorHandler");
-const login = require("./routes/userLogin");
-const createAccount = require("./routes/createAccount");
-const customer = require("./routes/customer");
-const genres = require("./routes/genure");
+const errorhandler = require("./startup/error/errorHandler");
+const login = require("./startup/routes/userLogin");
+const createAccount = require("./startup/routes/createAccount");
+const customer = require("./startup/routes/customer");
+const genres = require("./startup/routes/genure");
 const express = require("express");
 const mongoose = require("mongoose");
 const fs = require("fs");
@@ -12,7 +12,6 @@ const morgan = require("morgan");
 const path = require("path");
 const config = require("config");
 const winston = require("winston");
-
 
 const logger = winston.createLogger({
   level: "info",
@@ -33,18 +32,13 @@ const accessLogStream = fs.createWriteStream(
 );
 app.use(morgan("combined", { stream: accessLogStream }));
 
-process.on("uncaughtException",(err)=>{
-  logger.log("error",err.message)
-})
-process.on("unhandledRejection",(err)=>{
-  logger.log("error",err.message)
-  process.exit(1)
-})
-
-
-
-
-
+process.on("uncaughtException", (err) => {
+  logger.log("error", err.message);
+});
+process.on("unhandledRejection", (err) => {
+  logger.log("error", err.message);
+  process.exit(1);
+});
 
 async function connectMongoDb() {
   try {
@@ -52,7 +46,6 @@ async function connectMongoDb() {
     logger.log("info", `connected to Database on ${new Date().toUTCString()}`);
   } catch (err) {
     logger.log("error", err.message);
-  
   }
 }
 connectMongoDb();
@@ -63,7 +56,8 @@ app.use("/api/login", login);
 app.use(errorhandler);
 
 console.log(config.get("env"));
+const port = process.env.PORT
 const server = app.listen(3000, () => {
-  console.log("listening to port 3000");
+  console.log(`listening to port`);
 });
-module.exports = server
+module.exports = server;

@@ -9,7 +9,7 @@ const mongoose = require("mongoose");
 const _ = require("lodash");
 const auth = require("../authentification/JWTauth");
 const winston = require("winston");
-const asyncMiddleWarwe = require("../model/try&catch");
+const asyncMiddleWarwe = require("../error/try&catch");
      require("winston-mongodb")
 const logger = winston.createLogger({
   level: "info",
@@ -34,7 +34,7 @@ router.get(
       .select({ name: 1, "movies.CopiesAvailable": 1 });
     res.status(200).send(getAllGenres);
   })
-);
+); 
 router.get(
   "/allmovies",
   asyncMiddleWarwe(async (req, res) => {
@@ -95,8 +95,7 @@ router.post(
 );
 
 router.put(
-  "/update/:id",
-  auth,
+  "/update/:id", auth,
   asyncMiddleWarwe(async (req, res) => {
     const requestId = req.params.id;
     const genreName = req.body.name;
