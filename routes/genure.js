@@ -54,14 +54,14 @@ router.post(
     const postRequest = req.params.id;
     const objId = mongoose.Types.ObjectId.isValid(postRequest);
     if (!objId) {
-      return res.status(400).send("objectId not valid");
+      return res.status(404).send("objectId not valid");
     }
 
-    const obj = await genreModel.find({ _id: postRequest }).select("movies");
-    if (obj.length < 1) {
+    const obj = await genreModel.find({ _id: postRequest }).select("movie");
+    if (obj[0].length < 2 || obj[0].length == undefined ) {
       return res.status(400).send("no movie available for this selected genre");
     }
-    return res.status(200).send(obj);
+    return res.status(200).send(_.pick(obj,["movie"]));
   })
 );
 

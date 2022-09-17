@@ -1,7 +1,7 @@
 {
   "scripts": {
     "start": "cross-env NODE_ENV=test nodemon index.js",
-    "test": "jest --watchAll"
+    "test": "jest --watchAll --verbose"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
