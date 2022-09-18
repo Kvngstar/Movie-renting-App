@@ -27,14 +27,16 @@ const logger = winston.createLogger({
 });
 
 app.use(helmet());
-app.use(compression());
 app.use(express.json());
+app.use(compression());
+
+
+
 const accessLogStream = fs.createWriteStream(
   path.join(__dirname, "access.log"),
   { flags: "a" }
 );
-app.use(morgan("simple", { stream: accessLogStream }));
-
+app.use(morgan("combined", { stream: accessLogStream }));
 console.log(config.get("db"));
 process.on("uncaughtException", (err) => {
   logger.log("error", err.message);
