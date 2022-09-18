@@ -21,7 +21,7 @@ const logger = winston.createLogger({
       filename: "Info-IndexPage.log",
       level: "info",
     }),
-    new winston.transports.Console()
+    new winston.transports.Console(),
   ],
 });
 
@@ -42,14 +42,13 @@ process.on("unhandledRejection", (err) => {
 
 async function connectMongoDb() {
   try {
-    await mongoose.connect(
-      config.get("db")
-    );
+    await mongoose.connect(config.get("db"));
     logger.log("info", `connected to Database on ${new Date().toUTCString()}`);
   } catch (err) {
     logger.log("error", err.message);
   }
 }
+console.log(config.get("db"));
 connectMongoDb();
 app.use("/api/genre", genres);
 app.use("/api/createAccount", createAccount);
@@ -58,5 +57,5 @@ app.use("/api/login", login);
 app.use(errorhandler);
 const port = process.env.PORT || 3112;
 app.listen(port, () => {
-  console.log(`listening to port`);
+  console.log(`listening to port ${port}`);
 });

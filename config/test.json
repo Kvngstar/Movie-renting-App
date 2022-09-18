@@ -1,6 +1,0 @@
-{
-    "env":"test: this from config file",
-    "password":"1234",
-    "db": "mongodb://localhost:27017/Knglystores_test"
-
-}
