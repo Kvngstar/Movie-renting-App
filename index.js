@@ -12,6 +12,7 @@ const morgan = require("morgan");
 const path = require("path");
 const config = require("config");
 const winston = require("winston");
+const compression = require("compression");
 
 const logger = winston.createLogger({
   level: "info",
@@ -26,13 +27,15 @@ const logger = winston.createLogger({
 });
 
 app.use(helmet());
+app.use(compression());
 app.use(express.json());
 const accessLogStream = fs.createWriteStream(
   path.join(__dirname, "access.log"),
   { flags: "a" }
 );
-app.use(morgan("combined", { stream: accessLogStream }));
+app.use(morgan("simple", { stream: accessLogStream }));
 
+console.log(config.get("db"));
 process.on("uncaughtException", (err) => {
   logger.log("error", err.message);
 });
@@ -48,7 +51,6 @@ async function connectMongoDb() {
     logger.log("error", err.message);
   }
 }
-console.log(config.get("db"));
 connectMongoDb();
 app.use("/api/genre", genres);
 app.use("/api/createAccount", createAccount);
