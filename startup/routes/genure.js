@@ -10,18 +10,22 @@ const _ = require("lodash");
 const auth = require("../authentification/JWTauth");
 const winston = require("winston");
 const asyncMiddleWarwe = require("../error/try&catch");
-     require("winston-mongodb")
+require("winston-mongodb");
 const logger = winston.createLogger({
   level: "info",
   format: winston.format.simple(),
   transports: [
     new winston.transports.File({
-      filename: "Error-genre.log",  
+      filename: "Error-genre.log",
       level: "error",
     }),
     new winston.transports.File({ filename: "Info-genre.log", level: "info" }),
-    new winston.transports.MongoDB({db:"mongodb://localhost:27017/Knglystores",level:"info",name:"GenreAPI",collection:"log - genre"}),
-  
+    new winston.transports.MongoDB({
+      db: "mongodb://localhost:27017/Knglystores",
+      level: "info",
+      name: "GenreAPI",
+      collection: "log - genre",
+    }),
   ],
 });
 
@@ -34,7 +38,7 @@ router.get(
       .select({ name: 1, "movies.CopiesAvailable": 1 });
     res.status(200).send(getAllGenres);
   })
-); 
+);
 router.get(
   "/allmovies",
   asyncMiddleWarwe(async (req, res) => {
@@ -58,10 +62,10 @@ router.post(
     }
 
     const obj = await genreModel.find({ _id: postRequest }).select("movie");
-    if (obj[0].length < 2 || obj[0].length == undefined ) {
+    if (obj[0].length < 2 || obj[0].length == undefined) {
       return res.status(400).send("no movie available for this selected genre");
     }
-    return res.status(200).send(_.pick(obj,["movie"]));
+    return res.status(200).send(_.pick(obj, ["movie"]));
   })
 );
 
@@ -90,12 +94,13 @@ router.post(
         createGenure.name
       }~ on ~${new Date().toUTCString()}~`
     );
-    res.status(200).send(createGenure);
+    res.status(200).send(_.pick(createGenure, ["name", "movies.Moviename"]));
   })
 );
 
 router.put(
-  "/update/:id", auth,
+  "/update/:id",
+  auth,
   asyncMiddleWarwe(async (req, res) => {
     const requestId = req.params.id;
     const genreName = req.body.name;
@@ -128,11 +133,14 @@ router.delete(
 
     const checkingId = await genreModel.findById(getId);
     if (!checkingId) {
-      return res.status(400).send("Error!, user Not Found");
+      return res.status(400).send("Error!, ID Not Found");
     }
     const deleteId = await genreModel.findByIdAndRemove(getId);
-    logger.log("info", `${deleteId} was deleted from the DataBase`);
-    return res.status(200).send(deleteId);
+    logger.log(
+      "info",
+      `Deleted ~${deleteId.movies.Moviename}~ with id ${deleteId._id} was deleted from the DataBase`
+    );
+    return res.status(200).send(_.pick(deleteId, ["movies.Moviename", "_id"]));
   })
 );
 
