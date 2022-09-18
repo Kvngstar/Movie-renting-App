@@ -1,3 +1,4 @@
 {
-    "password":"kingly_jwtprivatekey"
+    "password":"kingly_jwtprivatekey",
+    "db": "kingly_db"
 }
