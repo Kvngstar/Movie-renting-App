@@ -26,7 +26,10 @@ const logger = winston.createLogger({
   ],
 });
 
-app.use(helmet());
+app.use(helmet({
+  crossOriginResourcePolicy: false,
+    crossOriginEmbedderPolicy: false
+}));
 app.use(express.json());
 app.use(compression());
 
